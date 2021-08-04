@@ -47,7 +47,7 @@ public class C206_CaseStudy {
 					System.out.println("Invalid type");
 				}}
 				
-			else if (option == 1) {
+			else if (option == 3) {
 				// Delete currency
 				Currency dcurrency = inputDeleteCurrency();
 				C206_CaseStudy.deleteCurrency(currencyList, dcurrency);
@@ -130,7 +130,7 @@ public class C206_CaseStudy {
 //			return avail;
 //		}
 
-		//================================= Option 1 View (CRUD - Read) =================================
+	//================================= Option 1 View (CRUD - Read) =================================
 	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
 		String output = "";
 
@@ -145,7 +145,7 @@ public class C206_CaseStudy {
 	
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 		C206_CaseStudy.setHeader("CURRENCY LIST");
-		String output = String.format("%-10s %-30s %-10s %-10s\n", "CURRENCY ISO", "CURRENCY NAME",
+		String output = String.format("%-15s %-30s %-10s %-10s\n", "CURRENCY ISO", "CURRENCY NAME",
 							"BUY RATE", "SELL RATE");
 		output += retrieveAllCurrency(currencyList);	
 		System.out.println(output);
@@ -174,23 +174,23 @@ public class C206_CaseStudy {
 	
 	//================================= Option 3 Delete (CRUD - DELETE+UPDATE)=================================
 	public static Currency inputDeleteCurrency() {
-		String currencyISO = Helper.readString("Enter currency ISO > ");
-		String currencyName = Helper.readString("Enter currency name > ");
-		double buyRate = Helper.readDouble("Enter buy rate > ");
-		double sellRate = Helper.readDouble("Enter sell rate > ");
+		String dcurrencyISO = Helper.readString("Enter currency ISO > ");
+		String dcurrencyName = Helper.readString("Enter currency name > ");
+		double dbuyRate = Helper.readDouble("Enter buy rate > ");
+		double dsellRate = Helper.readDouble("Enter sell rate > ");
 
-		Currency dcurrency = new Currency(currencyISO, currencyName, buyRate, sellRate);
+		Currency dcurrency = new Currency(dcurrencyISO, dcurrencyName, dbuyRate, dsellRate);
 		return dcurrency;
 			
 	}
 	
 	public static void deleteCurrency(ArrayList<Currency> currencyList, Currency dcurrency) {
-			
-		currencyList.remove(dcurrency);
+		
+		currencyList.remove(dcurrency); 
 		System.out.println("Currency deleted");
 	}
 }
-	
+	//Got error with my delete (Siew Gek)
 	
 	
 		
