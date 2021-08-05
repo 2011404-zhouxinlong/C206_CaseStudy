@@ -185,7 +185,7 @@ public class C206_CaseStudy {
 
 //================================= Option 4 Search BUY and SELL rate =================================
 
-	public static Currency searchCurrency(ArrayList<Currency> currencyList) {
+	public static void searchCurrency(ArrayList<Currency> currencyList) {
 
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
 		for (int i = 0; i < currencyList.size(); i++) {
@@ -197,12 +197,10 @@ public class C206_CaseStudy {
 			}
 		}
 
-		return null;
-
 	}
 
 //================================= Option 5 Calculate =================================
-	public static Currency calculateCurrency(ArrayList<Currency> currencyList) {
+	public static void calculateCurrency(ArrayList<Currency> currencyList) {
 		char buyOrsell = Helper.readChar("Buying or Selling (b/s) > ");
 		if (buyOrsell == 'b' || buyOrsell == 'B') {
 			String searchISO = Helper.readString("Enter country ISO (e.g. USD) > ");
@@ -212,6 +210,7 @@ public class C206_CaseStudy {
 					double conversion = currencyList.get(i).getBuyRate() * buyAmount;
 					System.out.println(
 							"The converted amount of " + searchISO + " is $" + String.format("%.2f", conversion));
+					System.out.println("1 SGD = " + currencyList.get(i).getBuyRate() + " " + searchISO);
 				} else if (!currencyList.get(i).getCurrencyISO().contains(searchISO)) {
 					System.out.println("Invalid ISO code!");
 				}
@@ -227,6 +226,8 @@ public class C206_CaseStudy {
 					double conversion = currencyList.get(i).getSellRate() * sellAmount;
 					System.out.println("The converted amount of " + searchISO.toUpperCase() + " is $"
 							+ String.format("%.2f", conversion));
+					System.out.println("1 SGD = " + currencyList.get(i).getSellRate() + " " + searchISO);
+
 				} else if (!currencyList.get(i).getCurrencyISO().contains(searchISO)) {
 					System.out.println("Invalid ISO code!");
 				}
@@ -234,6 +235,6 @@ public class C206_CaseStudy {
 			}
 
 		}
-		return null;
+
 	}
 }
