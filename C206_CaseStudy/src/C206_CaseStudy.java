@@ -76,7 +76,8 @@ public class C206_CaseStudy {
 			else if (option == 4) {
 				// Return item
 				C206_CaseStudy.setHeader("SEARCH");
-				C206_CaseStudy.searchCurrency(currencyList);
+				String searchCountry = inputSearchCurrency();
+				C206_CaseStudy.searchCurrency(currencyList, searchCountry);
 
 			}
 
@@ -185,33 +186,40 @@ public class C206_CaseStudy {
 
 //================================= Option 4 Search BUY and SELL rate =================================
 
-	public static void searchCurrency(ArrayList<Currency> currencyList) {
-
+	public static String inputSearchCurrency() {
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
+		return searchCountry;
+	}
+
+	public static void searchCurrency(ArrayList<Currency> currencyList, String searchCountry) {
+
 		for (int i = 0; i < currencyList.size(); i++) {
-			if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().contains(searchCountry)) {
-				System.out.println("The BUY rate of this currency is " + currencyList.get(i).getBuyRate());
-				System.out.println("The SELL rate of this currency is " + currencyList.get(i).getSellRate());
-			} else if (!currencyList.get(i).getCurrencyISO().contains(searchCountry)) {
-				System.out.println("Invalid ISO code!");
+
+			if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().equalsIgnoreCase(searchCountry)) {
+				double buyRate = currencyList.get(i).getBuyRate();
+				double sellRate = currencyList.get(i).getSellRate();
+
+				System.out.println("The BUY rate of this currency is " + buyRate);
+				System.out.println("The SELL rate of this currency is " + sellRate);
 			}
 		}
 
 	}
 
 //================================= Option 5 Calculate =================================
+
 	public static void calculateCurrency(ArrayList<Currency> currencyList) {
+		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
 		char buyOrsell = Helper.readChar("Buying or Selling (b/s) > ");
 		if (buyOrsell == 'b' || buyOrsell == 'B') {
-			String searchISO = Helper.readString("Enter country ISO (e.g. USD) > ");
 			for (int i = 0; i < currencyList.size(); i++) {
-				if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().contains(searchISO)) {
+				if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().contains(searchCountry)) {
 					double buyAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
 					double conversion = currencyList.get(i).getBuyRate() * buyAmount;
 					System.out.println(
-							"The converted amount of " + searchISO + " is $" + String.format("%.2f", conversion));
-					System.out.println("1 SGD = " + currencyList.get(i).getBuyRate() + " " + searchISO);
-				} else if (!currencyList.get(i).getCurrencyISO().contains(searchISO)) {
+							"The converted amount of " + searchCountry + " is $" + String.format("%.2f", conversion));
+					System.out.println("1 SGD = " + currencyList.get(i).getBuyRate() + " " + searchCountry);
+				} else if (!currencyList.get(i).getCurrencyISO().contains(searchCountry)) {
 					System.out.println("Invalid ISO code!");
 				}
 			}
