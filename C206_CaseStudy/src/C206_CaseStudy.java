@@ -1,17 +1,17 @@
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
 
-	
-	private static final int OPTION_QUIT = 5; //Extract constant
+	private static final int OPTION_QUIT = 5; // Extract constant
+
 	public static void main(String[] args) {
 
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
-		//do add other arraylist if required (Siew Gek)
+		// do add other arraylist if required (Siew Gek)
 
 		currencyList.add(new Currency("USD", "United States Dollar", 1.34, 1.36));
 		currencyList.add(new Currency("JPY", "Japanese Yen", 1.22, 1.25));
-		
 
 		int option = 0;
 
@@ -23,14 +23,13 @@ public class C206_CaseStudy {
 			if (option == 1) {
 				// View all items
 				C206_CaseStudy.viewAllCurrency(currencyList);
-				
 
 			} else if (option == 2) {
 				// Add a new item
-				C206_CaseStudy.setHeader("ADD");	
-				//Extract Method
+				C206_CaseStudy.setHeader("ADD");
+				// Extract Method
 				moneyTypeMenu();
-					
+
 				int moneyType = Helper.readInt("Enter option to select money type > ");
 
 				if (moneyType == 1) {
@@ -45,13 +44,14 @@ public class C206_CaseStudy {
 
 				} else {
 					System.out.println("Invalid type");
-				}}
-				
+				}
+			}
+
 			else if (option == 3) {
 				// Delete currency
 				Currency dcurrency = inputDeleteCurrency();
 				C206_CaseStudy.deleteCurrency(currencyList, dcurrency);
-			} 
+			}
 
 //			} else if (option == 3) {
 //				// Loan item
@@ -86,7 +86,19 @@ public class C206_CaseStudy {
 //					System.out.println("Invalid type");
 //				}
 
-			 else if (option == OPTION_QUIT) {
+//			else if (option == 4) {
+//				// Return item
+//				C206_CaseStudy.setHeader("SEARCH");
+//				C206_CaseStudy.searchCurrency();
+//
+//			}
+
+			else if (option == 5) {
+				// Add a new item
+				C206_CaseStudy.setHeader("CALCULATE");
+				C206_CaseStudy.calculateCurrency();
+
+			} else if (option == OPTION_QUIT) {
 				System.out.println("Bye!");
 			} else {
 				System.out.println("Invalid option");
@@ -96,28 +108,29 @@ public class C206_CaseStudy {
 
 	}
 
-		private static void moneyTypeMenu() {
-			C206_CaseStudy.setHeader("MONEY TYPES");
-			System.out.println("1. Currency");
+	private static void moneyTypeMenu() {
+		C206_CaseStudy.setHeader("MONEY TYPES");
+		System.out.println("1. Currency");
 //			System.out.println("2. Chromebook");
-		}
+	}
 
-		public static void menu() {
-			C206_CaseStudy.setHeader("MONEY EXCHANGE APP");
-			System.out.println("1. View currencies");
-			System.out.println("2. Add currency");
-			System.out.println("3. Delete currency");
-//			System.out.println("4. Return item");
-//			System.out.println("5. Quit");
-			Helper.line(80, "-");
+	public static void menu() {
+		C206_CaseStudy.setHeader("MONEY EXCHANGE APP");
+		System.out.println("1. View currencies");
+		System.out.println("2. Add currency");
+		System.out.println("3. Delete currency");
+		System.out.println("4. Search BUY and SELL rate");
+		System.out.println("5. Calculate Conversion");
+//			System.out.println("6. Quit");
+		Helper.line(80, "-");
 
-		}
-		
-		public static void setHeader(String header) {
-			Helper.line(80, "-");
-			System.out.println(header);
-			Helper.line(80, "-");
-		}
+	}
+
+	public static void setHeader(String header) {
+		Helper.line(80, "-");
+		System.out.println(header);
+		Helper.line(80, "-");
+	}
 
 //		public static String showAvailability(boolean isAvailable) {
 //			String avail;
@@ -130,7 +143,8 @@ public class C206_CaseStudy {
 //			return avail;
 //		}
 
-	//================================= Option 1 View (CRUD - Read) =================================
+	// ================================= Option 1 View (CRUD - Read)
+	// =================================
 	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
 		String output = "";
 
@@ -142,17 +156,17 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
-	
+
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 		C206_CaseStudy.setHeader("CURRENCY LIST");
-		String output = String.format("%-15s %-30s %-10s %-10s\n", "CURRENCY ISO", "CURRENCY NAME",
-							"BUY RATE", "SELL RATE");
-		output += retrieveAllCurrency(currencyList);	
+		String output = String.format("%-15s %-30s %-10s %-10s\n", "CURRENCY ISO", "CURRENCY NAME", "BUY RATE",
+				"SELL RATE");
+		output += retrieveAllCurrency(currencyList);
 		System.out.println(output);
 	}
 
-
-	//================================= Option 2 Add (CRUD - Create)=================================
+	// ================================= Option 2 Add (CRUD -
+	// Create)=================================
 	public static Currency inputCurrency() {
 		String currencyISO = Helper.readString("Enter currency ISO > ");
 		String currencyName = Helper.readString("Enter currency name > ");
@@ -161,18 +175,17 @@ public class C206_CaseStudy {
 
 		Currency currency = new Currency(currencyISO, currencyName, buyRate, sellRate);
 		return currency;
-			
+
 	}
-	
+
 	public static void addCurrency(ArrayList<Currency> currencyList, Currency currency) {
-			
+
 		currencyList.add(currency);
 		System.out.println("Currency added");
 	}
-	
-	
-	
-	//================================= Option 3 Delete (CRUD - DELETE+UPDATE)=================================
+
+	// ================================= Option 3 Delete (CRUD -
+	// DELETE+UPDATE)=================================
 	public static Currency inputDeleteCurrency() {
 		String dcurrencyISO = Helper.readString("Enter currency ISO > ");
 		String dcurrencyName = Helper.readString("Enter currency name > ");
@@ -181,35 +194,59 @@ public class C206_CaseStudy {
 
 		Currency dcurrency = new Currency(dcurrencyISO, dcurrencyName, dbuyRate, dsellRate);
 		return dcurrency;
-			
+
 	}
-	
+
 	public static void deleteCurrency(ArrayList<Currency> currencyList, Currency dcurrency) {
-		
-		currencyList.remove(dcurrency); 
+
+		currencyList.remove(dcurrency);
 		System.out.println("Currency deleted");
 	}
-}
-	//Got error with my delete (Siew Gek)
+
+// Got error with my delete (Siew Gek)
 	
+//================================= Option 4 Search BUY and SELL rate =================================
 	
-		
-//	public static Chromebook inputChromebook() {
-//		String tag = Helper.readString("Enter asset tag > ");
-//		String description = Helper.readString("Enter description > ");
-//		String os = Helper.readString("Enter operating system > ");
-//
-//		Chromebook cb= new Chromebook(tag, description, os);
-//		return cb;
-//			
-//	}	
+//	public static Currency searchCurrency(ArrayList<Currency> currencyList) {
+//		
+//		String searchCountry = Helper.readString("Enter country to search for (e.g.) >");
+//		for (int i = 0; i < currencyList.size(); i++) {
+//			Currency s = currencyList.get(i);
+//			if (currencyList != null && ) {
+//				
+//			}
+//		}
+//		
+//		return null;
+//		
+//	}
+
+//================================= Option 5 Calculate =================================
+	public static Currency calculateCurrency() {
+		char buyOrsell = Helper.readChar("Buying or Selling (b/s) > ");
+		if (buyOrsell == 'b' || buyOrsell == 'B') {
+			double buyRate = Helper.readDouble("Enter BUY rate > ");
+			double buyAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
+
+			double conversion = buyRate * buyAmount;
+			System.out.println("The converted amount is " + conversion);
+		} else if (buyOrsell == 's' || buyOrsell == 'S') {
+			double sellRate = Helper.readDouble("Enter SELL rate > ");
+			double sellAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
+
+			double conversion = sellRate * sellAmount;
+			System.out.println("The converted amount is $" + String.format("%.2f", conversion));
+		}
+		return null;
+
+	}
 //	
 //	public static void addChromebook(ArrayList<Chromebook> chromebookList, Chromebook cb) {
 //
 //		chromebookList.add(cb);
 //		System.out.println("Chromebook added");
 //	}
-		
+
 //		//================================= Option __ Loan (CURD- Update) =================================
 //		public static boolean doLoanCamcorder(ArrayList<Camcorder> camcorderList, String tag, String dueDate) {
 //			
@@ -337,8 +374,4 @@ public class C206_CaseStudy {
 //				System.out.println("Chromebook " + tag + " returned");
 //			}
 //		}
-//}
-
-
-
-
+}
