@@ -227,24 +227,33 @@ public class C206_CaseStudy {
 		char buyOrsell = Helper.readChar("Buying or Selling (b/s) > ");
 		if (buyOrsell == 'b' || buyOrsell == 'B') {
 			String searchISO = Helper.readString("Enter country ISO (e.g. USD) > ");
-			double buyAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
-			double buyRate = Helper.readDouble("Enter exchange rate > ");
-			double conversion = buyRate * buyAmount;
-			System.out.println("The converted amount of " + searchISO + " is $" + conversion);
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().contains(searchISO)) {
+					double buyAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
+					double conversion = currencyList.get(i).getBuyRate() * buyAmount;
+					System.out.println(
+							"The converted amount of " + searchISO + " is $" + String.format("%.2f", conversion));
+				}
+			}
 
 		}
 
 		else if (buyOrsell == 's' || buyOrsell == 'S') {
-			double sellRate = Helper.readDouble("Enter SELL rate > ");
-			double sellAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
+			String searchISO = Helper.readString("Enter country ISO (e.g. USD) > ");
+			for (int i = 0; i < currencyList.size(); i++) {
+				if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().contains(searchISO)) {
+					double sellAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
+					double conversion = currencyList.get(i).getSellRate() * sellAmount;
+					System.out.println("The converted amount of " + searchISO.toUpperCase() + " is $"
+							+ String.format("%.2f", conversion));
+				}
+			}
 
-			double conversion = sellRate * sellAmount;
-			System.out.println("The converted amount is $" + String.format("%.2f", conversion));
 		}
 		return null;
 
 	}
-//	
+
 //	public static void addChromebook(ArrayList<Chromebook> chromebookList, Chromebook cb) {
 //
 //		chromebookList.add(cb);
