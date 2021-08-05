@@ -95,7 +95,6 @@ public class C206_CaseStudy {
 
 	}
 
-
 	public static void menu() {
 		C206_CaseStudy.setHeader("MONEY EXCHANGE APP");
 		System.out.println("1. View currencies");
@@ -125,7 +124,8 @@ public class C206_CaseStudy {
 //			return avail;
 //		}
 
-	// ================================= Option 1 View (CRUD - Read) =================================
+	// ================================= Option 1 View (CRUD - Read)
+	// =================================
 	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
 		String output = "";
 
@@ -146,7 +146,8 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	// ================================= Option 2 Add (CRUD - Create)=================================
+	// ================================= Option 2 Add (CRUD -
+	// Create)=================================
 	public static Currency inputCurrency() {
 		String currencyISO = Helper.readString("Enter currency ISO > ");
 		String currencyName = Helper.readString("Enter currency name > ");
@@ -164,23 +165,23 @@ public class C206_CaseStudy {
 		System.out.println("Currency added");
 	}
 
-	// ================================= Option 3 Delete (CRUD - DELETE)=================================
+	// ================================= Option 3 Delete (CRUD -
+	// DELETE)=================================
 	public static String inputDeleteCurrencyISO() {
 		String dcurrencyISO = Helper.readString("Enter currency ISO > ");
-		
+
 		return dcurrencyISO;
 	}
 
 	public static void deleteCurrency(ArrayList<Currency> currencyList, String dcurrenyISO) {
-		for (Iterator<Currency> it = currencyList.iterator(); it.hasNext(); ) {
-		    Currency dcurrency = it.next();
-		    if (dcurrency.getCurrencyISO().equalsIgnoreCase(dcurrenyISO)) {
-		        it.remove();
-		    }
+		for (Iterator<Currency> it = currencyList.iterator(); it.hasNext();) {
+			Currency dcurrency = it.next();
+			if (dcurrency.getCurrencyISO().equalsIgnoreCase(dcurrenyISO)) {
+				it.remove();
+			}
 		}
 		System.out.println("Currency deleted");
 	}
-
 
 //================================= Option 4 Search BUY and SELL rate =================================
 
@@ -188,10 +189,11 @@ public class C206_CaseStudy {
 
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
 		for (int i = 0; i < currencyList.size(); i++) {
-			if (currencyList.get(i) != null
-					&& currencyList.get(i).getCurrencyISO().toLowerCase().contains(searchCountry)) {
+			if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().contains(searchCountry)) {
 				System.out.println("The BUY rate of this currency is " + currencyList.get(i).getBuyRate());
 				System.out.println("The SELL rate of this currency is " + currencyList.get(i).getSellRate());
+			} else if (!currencyList.get(i).getCurrencyISO().contains(searchCountry)) {
+				System.out.println("Invalid ISO code!");
 			}
 		}
 
@@ -230,6 +232,5 @@ public class C206_CaseStudy {
 		return null;
 
 	}
-
 
 }
