@@ -1,5 +1,6 @@
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class C206_CaseStudy {
 
@@ -27,30 +28,16 @@ public class C206_CaseStudy {
 			} else if (option == 2) {
 				// Add a new item
 				C206_CaseStudy.setHeader("ADD");
-				// Extract Method
-				moneyTypeMenu();
 
-				int moneyType = Helper.readInt("Enter option to select money type > ");
-
-				if (moneyType == 1) {
-					// Add a currency
-					Currency currency = inputCurrency();
-					C206_CaseStudy.addCurrency(currencyList, currency);
-
-//				} else if (itemType == 2) {
-//					// Add Chromebook
-//					Chromebook cb = inputChromebook();
-//					ResourceCentre.addChromebook(chromebookList, cb);
-
-				} else {
-					System.out.println("Invalid type");
-				}
+				// Add a currency
+				Currency currency = inputCurrency();
+				C206_CaseStudy.addCurrency(currencyList, currency);
 			}
 
 			else if (option == 3) {
 				// Delete currency
-				Currency dcurrency = inputDeleteCurrency();
-				C206_CaseStudy.deleteCurrency(currencyList, dcurrency);
+				String dcurrencyISO = inputDeleteCurrencyISO();
+				C206_CaseStudy.deleteCurrency(currencyList, dcurrencyISO);
 			}
 
 //			} else if (option == 3) {
@@ -108,11 +95,6 @@ public class C206_CaseStudy {
 
 	}
 
-	private static void moneyTypeMenu() {
-		C206_CaseStudy.setHeader("MONEY TYPES");
-		System.out.println("1. Currency");
-//			System.out.println("2. Chromebook");
-	}
 
 	public static void menu() {
 		C206_CaseStudy.setHeader("MONEY EXCHANGE APP");
@@ -143,8 +125,7 @@ public class C206_CaseStudy {
 //			return avail;
 //		}
 
-	// ================================= Option 1 View (CRUD - Read)
-	// =================================
+	// ================================= Option 1 View (CRUD - Read) =================================
 	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
 		String output = "";
 
@@ -165,8 +146,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	// ================================= Option 2 Add (CRUD -
-	// Create)=================================
+	// ================================= Option 2 Add (CRUD - Create)=================================
 	public static Currency inputCurrency() {
 		String currencyISO = Helper.readString("Enter currency ISO > ");
 		String currencyName = Helper.readString("Enter currency name > ");
@@ -184,26 +164,24 @@ public class C206_CaseStudy {
 		System.out.println("Currency added");
 	}
 
-	// ================================= Option 3 Delete (CRUD -
-	// DELETE+UPDATE)=================================
-	public static Currency inputDeleteCurrency() {
+	// ================================= Option 3 Delete (CRUD - DELETE+UPDATE)=================================
+	public static String inputDeleteCurrencyISO() {
 		String dcurrencyISO = Helper.readString("Enter currency ISO > ");
-		String dcurrencyName = Helper.readString("Enter currency name > ");
-		double dbuyRate = Helper.readDouble("Enter buy rate > ");
-		double dsellRate = Helper.readDouble("Enter sell rate > ");
-
-		Currency dcurrency = new Currency(dcurrencyISO, dcurrencyName, dbuyRate, dsellRate);
-		return dcurrency;
-
+		
+		return dcurrencyISO;
 	}
 
-	public static void deleteCurrency(ArrayList<Currency> currencyList, Currency dcurrency) {
-
-		currencyList.remove(dcurrency);
+	public static void deleteCurrency(ArrayList<Currency> currencyList, String dcurrenyISO) {
+		for (Iterator<Currency> it = currencyList.iterator(); it.hasNext(); ) {
+		    Currency dcurrency = it.next();
+		    if (dcurrency.getCurrencyISO().equalsIgnoreCase(dcurrenyISO)) {
+		        it.remove();
+		    }
+		}
 		System.out.println("Currency deleted");
 	}
 
-// Got error with my delete (Siew Gek)
+
 	
 //================================= Option 4 Search BUY and SELL rate =================================
 	
