@@ -1,4 +1,4 @@
-import java.math.RoundingMode;
+
 import java.util.ArrayList;
 
 public class C206_CaseStudy {
@@ -86,12 +86,12 @@ public class C206_CaseStudy {
 //					System.out.println("Invalid type");
 //				}
 
-//			else if (option == 4) {
-//				// Return item
-//				C206_CaseStudy.setHeader("SEARCH");
-//				C206_CaseStudy.searchCurrency();
-//
-//			}
+			else if (option == 4) {
+				// Return item
+				C206_CaseStudy.setHeader("SEARCH");
+				C206_CaseStudy.searchCurrency(currencyList);
+
+			}
 
 			else if (option == 5) {
 				// Add a new item
@@ -204,22 +204,22 @@ public class C206_CaseStudy {
 	}
 
 // Got error with my delete (Siew Gek)
-	
+
 //================================= Option 4 Search BUY and SELL rate =================================
-	
-//	public static Currency searchCurrency(ArrayList<Currency> currencyList) {
-//		
-//		String searchCountry = Helper.readString("Enter country to search for (e.g.) >");
-//		for (int i = 0; i < currencyList.size(); i++) {
-//			Currency s = currencyList.get(i);
-//			if (currencyList != null && ) {
-//				
-//			}
-//		}
-//		
-//		return null;
-//		
-//	}
+
+	public static Currency searchCurrency(ArrayList<Currency> currencyList) {
+
+		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
+		for (Currency i : currencyList) {
+			if (i != null && i.getCurrencyISO() == searchCountry) {
+				System.out.println("The BUY rate of this currency is " + i.getBuyRate());
+				System.out.println("The SELL rate of this currency is " + i.getSellRate());
+			}
+		}
+
+		return null;
+
+	}
 
 //================================= Option 5 Calculate =================================
 	public static Currency calculateCurrency() {
