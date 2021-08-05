@@ -97,6 +97,6 @@ public class C206_CaseStudyTest {
 		assertSame("Check that Currency is added", currency2, currencyList.get(1));
 	}
 	
-	
+	/
 
 }

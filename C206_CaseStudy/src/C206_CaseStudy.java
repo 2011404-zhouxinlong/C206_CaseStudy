@@ -9,11 +9,12 @@ public class C206_CaseStudy {
 	public static void main(String[] args) {
 
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
+		ArrayList<Holdings> HoldingList = new ArrayList<Holdings>();
 		// do add other arraylist if required (Siew Gek)
-
+		
 		currencyList.add(new Currency("USD", "United States Dollar", 1.34, 1.36));
 		currencyList.add(new Currency("JPY", "Japanese Yen", 1.22, 1.25));
-
+		
 		int option = 0;
 
 		while (option != OPTION_QUIT) {
@@ -85,11 +86,16 @@ public class C206_CaseStudy {
 				C206_CaseStudy.setHeader("CALCULATE");
 				C206_CaseStudy.calculateCurrency(currencyList);
 
-			} else if (option == OPTION_QUIT) {
-				System.out.println("Bye!");
-			} else {
-				System.out.println("Invalid option");
+			} else if (option == 6) {
+				C206_CaseStudy.setHeader("BUY CURRENCY");
+				C206_CaseStudy.getBuyRate(currencyList);
 			}
+			else if (option == OPTION_QUIT) {
+			System.out.println("Bye!");
+		} else {
+			System.out.println("Invalid option");
+		}
+		
 
 		}
 
@@ -103,7 +109,8 @@ public class C206_CaseStudy {
 		System.out.println("3. Delete currency");
 		System.out.println("4. Search BUY and SELL rate");
 		System.out.println("5. Calculate Conversion");
-		System.out.println("6. Quit");
+		System.out.println("6. Buy Currency");
+		System.out.println("7. Quit");
 		Helper.line(80, "-");
 
 	}
@@ -229,6 +236,18 @@ public class C206_CaseStudy {
 		}
 		return null;
 
+	}
+	//================================= Option 6 Buy Currency =================================
+	public static double getBuyRate(ArrayList<Currency> currencyList) {
+		char buy = Helper.readChar("Do you want to buy currency? (b/s) > ");
+		String searchISO = Helper.readString("Enter country ISO (e.g. USD) > ");
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().contains(searchISO)) {
+				double buyAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
+				double conversion = currencyList.get(i).getBuyRate() * buyAmount;
+				
+		return 0;
+		
 	}
 
 
