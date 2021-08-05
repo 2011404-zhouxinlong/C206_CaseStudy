@@ -40,7 +40,7 @@ public class C206_CaseStudyTest {
 	
 	@Test
 	public void retrieveAllCurrencyTest() {
-		// Test if Item list is not null -boundary
+		// Test if Currency list is not null -boundary
 		assertNotNull("Test if there is valid Currency arraylist to retrieve item", currencyList);
 		
 		//test if the list of currency retrieved from the CaseStudy is empty - boundary
@@ -83,7 +83,18 @@ public class C206_CaseStudyTest {
 	
 	@Test
 	public void deleteCurrencyTest() {
-		//Siew Gek
+		// Currency list is not null - boundary
+		assertNotNull("Check if there is valid Currency arraylist to add to", currencyList);
+		
+		//Given an empty list, after adding 2 currencies, test if the size of the list is 2 - normal
+		C206_CaseStudy.addCurrency(currencyList, currency1);
+		C206_CaseStudy.addCurrency(currencyList, currency2);
+		assertEquals("Test that Currency arraylist size is 2", 2, currencyList.size());
+		
+		//Test that the second currency is deleted, the size of the list is 1
+		C206_CaseStudy.deleteCurrency(currencyList, "JPY");
+		assertEquals("Check that Currency arraylist size is 2", 2, currencyList.size());
+		assertSame("Check that Currency is added", currency2, currencyList.get(1));
 	}
 	
 	
