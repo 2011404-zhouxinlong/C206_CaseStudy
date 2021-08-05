@@ -164,7 +164,7 @@ public class C206_CaseStudy {
 		System.out.println("Currency added");
 	}
 
-	// ================================= Option 3 Delete (CRUD - DELETE+UPDATE)=================================
+	// ================================= Option 3 Delete (CRUD - DELETE)=================================
 	public static String inputDeleteCurrencyISO() {
 		String dcurrencyISO = Helper.readString("Enter currency ISO > ");
 		
