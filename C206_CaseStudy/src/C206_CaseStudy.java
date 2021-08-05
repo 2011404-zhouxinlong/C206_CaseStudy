@@ -212,6 +212,8 @@ public class C206_CaseStudy {
 					double conversion = currencyList.get(i).getBuyRate() * buyAmount;
 					System.out.println(
 							"The converted amount of " + searchISO + " is $" + String.format("%.2f", conversion));
+				} else if (!currencyList.get(i).getCurrencyISO().contains(searchISO)) {
+					System.out.println("Invalid ISO code!");
 				}
 			}
 
@@ -225,12 +227,13 @@ public class C206_CaseStudy {
 					double conversion = currencyList.get(i).getSellRate() * sellAmount;
 					System.out.println("The converted amount of " + searchISO.toUpperCase() + " is $"
 							+ String.format("%.2f", conversion));
+				} else if (!currencyList.get(i).getCurrencyISO().contains(searchISO)) {
+					System.out.println("Invalid ISO code!");
 				}
+
 			}
 
 		}
 		return null;
-
 	}
-
 }
