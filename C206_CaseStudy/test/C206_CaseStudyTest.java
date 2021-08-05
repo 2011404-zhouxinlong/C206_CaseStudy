@@ -94,7 +94,7 @@ public class C206_CaseStudyTest {
 		//Test that the second currency is deleted, the size of the list is 1
 		C206_CaseStudy.deleteCurrency(currencyList, "JPY");
 		assertEquals("Check that Currency arraylist size is 2", 2, currencyList.size());
-		assertSame("Check that Currency is added", currency2, currencyList.get(1));		
+		assertSame("Check that Currency is added", currency2, currencyList.get(1));
 	}
 	
 	

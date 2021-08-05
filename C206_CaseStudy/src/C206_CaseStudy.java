@@ -1,4 +1,4 @@
-import java.math.RoundingMode;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -22,12 +22,11 @@ public class C206_CaseStudy {
 			option = Helper.readInt("Enter an option > ");
 
 			if (option == 1) {
-				// View all items
+				// View all currency
 				C206_CaseStudy.viewAllCurrency(currencyList);
 
 			} else if (option == 2) {
-				// Add a new item
-				C206_CaseStudy.setHeader("ADD");
+				C206_CaseStudy.setHeader("ADD A CURRENCY");
 
 				// Add a currency
 				Currency currency = inputCurrency();
@@ -35,6 +34,7 @@ public class C206_CaseStudy {
 			}
 
 			else if (option == 3) {
+				C206_CaseStudy.setHeader("DELETE A CURRENCY");
 				// Delete currency
 				String dcurrencyISO = inputDeleteCurrencyISO();
 				C206_CaseStudy.deleteCurrency(currencyList, dcurrencyISO);
@@ -73,17 +73,17 @@ public class C206_CaseStudy {
 //					System.out.println("Invalid type");
 //				}
 
-//			else if (option == 4) {
-//				// Return item
-//				C206_CaseStudy.setHeader("SEARCH");
-//				C206_CaseStudy.searchCurrency();
-//
-//			}
+			else if (option == 4) {
+				// Return item
+				C206_CaseStudy.setHeader("SEARCH");
+				C206_CaseStudy.searchCurrency(currencyList);
+
+			}
 
 			else if (option == 5) {
 				// Add a new item
 				C206_CaseStudy.setHeader("CALCULATE");
-				C206_CaseStudy.calculateCurrency();
+				C206_CaseStudy.calculateCurrency(currencyList);
 
 			} else if (option == OPTION_QUIT) {
 				System.out.println("Bye!");
@@ -103,7 +103,7 @@ public class C206_CaseStudy {
 		System.out.println("3. Delete currency");
 		System.out.println("4. Search BUY and SELL rate");
 		System.out.println("5. Calculate Conversion");
-//			System.out.println("6. Quit");
+		System.out.println("6. Quit");
 		Helper.line(80, "-");
 
 	}
@@ -182,33 +182,36 @@ public class C206_CaseStudy {
 	}
 
 
-	
 //================================= Option 4 Search BUY and SELL rate =================================
-	
-//	public static Currency searchCurrency(ArrayList<Currency> currencyList) {
-//		
-//		String searchCountry = Helper.readString("Enter country to search for (e.g.) >");
-//		for (int i = 0; i < currencyList.size(); i++) {
-//			Currency s = currencyList.get(i);
-//			if (currencyList != null && ) {
-//				
-//			}
-//		}
-//		
-//		return null;
-//		
-//	}
+
+	public static Currency searchCurrency(ArrayList<Currency> currencyList) {
+
+		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
+		for (int i = 0; i < currencyList.size(); i++) {
+			if (currencyList.get(i) != null
+					&& currencyList.get(i).getCurrencyISO().toLowerCase().contains(searchCountry)) {
+				System.out.println("The BUY rate of this currency is " + currencyList.get(i).getBuyRate());
+				System.out.println("The SELL rate of this currency is " + currencyList.get(i).getSellRate());
+			}
+		}
+
+		return null;
+
+	}
 
 //================================= Option 5 Calculate =================================
-	public static Currency calculateCurrency() {
+	public static Currency calculateCurrency(ArrayList<Currency> currencyList) {
 		char buyOrsell = Helper.readChar("Buying or Selling (b/s) > ");
 		if (buyOrsell == 'b' || buyOrsell == 'B') {
-			double buyRate = Helper.readDouble("Enter BUY rate > ");
+			String searchISO = Helper.readString("Enter country ISO (e.g. USD) > ");
 			double buyAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
-
+			double buyRate = Helper.readDouble("Enter exchange rate > ");
 			double conversion = buyRate * buyAmount;
-			System.out.println("The converted amount is " + conversion);
-		} else if (buyOrsell == 's' || buyOrsell == 'S') {
+			System.out.println("The converted amount of " + searchISO + " is $" + conversion);
+
+		}
+
+		else if (buyOrsell == 's' || buyOrsell == 'S') {
 			double sellRate = Helper.readDouble("Enter SELL rate > ");
 			double sellAmount = Helper.readDouble("Enter amount converting (2d.p.) > ");
 
