@@ -4,12 +4,12 @@ import java.util.Iterator;
 
 public class C206_CaseStudy {
 
-	private static final int OPTION_QUIT = 6; // Extract constant
+	private static final int OPTION_QUIT = 8; // Extract constant
 
 	public static void main(String[] args) {
 
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
-		//ArrayList<Holding> HoldingList = new ArrayList<Holding>();
+		ArrayList<Holding> HoldingList = new ArrayList<Holding>();
 // do add other arraylist if required (Siew Gek)
 		
 
@@ -18,7 +18,8 @@ public class C206_CaseStudy {
 		currencyList.add(new Currency("USD", "United States Dollar", 1.34, 1.36));
 		currencyList.add(new Currency("JPY", "Japanese Yen", 1.22, 1.25));
 		
-		//HoldingList.add(new Holding("SGD", "Singapore Dollar",100000));
+		HoldingList.add(new Holding("SGD", "Singapore Dollar",10000));
+		
 		
 		
 		
@@ -64,7 +65,10 @@ public class C206_CaseStudy {
 
 			} else if (option == 6) {
 				C206_CaseStudy.setHeader("BUY CURRENCY");
-				C206_CaseStudy.BuyCurrency(currencyList);
+				C206_CaseStudy.BuyCurrency(currencyList, HoldingList);
+			}else if (option == 7) {
+				C206_CaseStudy.setHeader("SELL CURRENCY");
+				C206_CaseStudy.SellCurrency(currencyList, HoldingList);
 			}
 			else if (option == OPTION_QUIT) {
 			System.out.println("Bye!");
@@ -85,7 +89,8 @@ public class C206_CaseStudy {
 		System.out.println("4. Search BUY and SELL rate");
 		System.out.println("5. Calculate Conversion");
 		System.out.println("6. Buy Currency");
-		System.out.println("7. Quit");
+		System.out.println("7. Sell Currency");
+		System.out.println("8. Quit");
 		Helper.line(80, "-");
 
 	}
@@ -219,7 +224,7 @@ public class C206_CaseStudy {
 
 	// ================================= Option 6 Buy Currency
 	// =================================
-	public static void BuyCurrency(ArrayList<Currency> currencyList) {
+	public static void BuyCurrency(ArrayList<Currency> currencyList,ArrayList<Holding>HoldingList) {
 		
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
 		char buy = Helper.readChar("Buying Currency? (Y/N) > ");
@@ -231,7 +236,9 @@ public class C206_CaseStudy {
 					double conversion = currencyList.get(i).getBuyRate() * buyAmount;
 					System.out.println(
 							"The Currency being bought of " + searchCountry + " is $" + String.format("%.2f", conversion));
-					System.out.println("Deducted holding From Singapore dollar To purchase" + searchCountry );			
+					double Holding = (HoldingList.get(i).getHamount() - buyAmount);
+					System.out.println("Deducted holding From Singapore dollar To purchase " + searchCountry );
+					System.out.println("Total of holding left in SGD $" + Holding);
 				} 
 			}
 
@@ -239,7 +246,7 @@ public class C206_CaseStudy {
 
 
 	}
-	public static void SellCurrency(ArrayList<Currency> currencyList) {
+	public static void SellCurrency(ArrayList<Currency> currencyList,ArrayList<Holding>HoldingList) {
 		
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
 		char sell = Helper.readChar("Selling Currency? (Y/N) > ");
@@ -247,11 +254,14 @@ public class C206_CaseStudy {
 			for (int i = 0; i < currencyList.size(); i++) {
 				if (currencyList.get(i) != null && currencyList.get(i).getCurrencyISO().contains(searchCountry)) {
 	//				x = currencyList.get(i).getCurrencyISO().contains(searchCountry);
-					double sellAmount = Helper.readDouble("Enter amount selling (2d.p.) > ");
+					double sellAmount = Helper.readDouble("Enter amount selling in SGD (2d.p.) > ");
 					double conversion = currencyList.get(i).getBuyRate() * sellAmount;
 					System.out.println(
-							"The Currency being Sold of " + searchCountry + " is $" + String.format("%.2f", conversion));
-					System.out.println("Added to holding From " + searchCountry + "to Singapore Dollar");			
+							"The Currency being Sold of " + searchCountry + " is $" + String.format("%.2f", conversion));	
+					System.out.println("Added to holding From " + searchCountry + " to Singapore Dollar From Selling");	
+					double Holding = (HoldingList.get(i).getHamount() + conversion);
+					System.out.println("Total of holding left in SGD $" + Holding);
+					
 				} 
 			}
 
@@ -261,3 +271,4 @@ public class C206_CaseStudy {
 	}
 
 }
+//

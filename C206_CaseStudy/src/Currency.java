@@ -28,6 +28,6 @@ public class Currency {
 	public double getSellRate() {
 		return sellRate;
 	}
-
+//
 
 }
