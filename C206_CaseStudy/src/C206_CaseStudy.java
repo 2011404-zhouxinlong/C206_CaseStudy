@@ -109,7 +109,7 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
-
+//
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 		C206_CaseStudy.setHeader("CURRENCY LIST");
 		String output = String.format("%-15s %-30s %-10s %-10s\n", "CURRENCY ISO", "CURRENCY NAME", "BUY RATE",
