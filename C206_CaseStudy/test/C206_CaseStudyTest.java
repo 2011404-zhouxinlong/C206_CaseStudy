@@ -81,7 +81,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that Currency arraylist size is 2", 2, currencyList.size());
 		assertSame("Check that Currency is added", currency2, currencyList.get(1));
 	}
-
+//
 	@Test
 	public void deleteCurrencyTest() {
 		// Currency list is not null - boundary
@@ -98,10 +98,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that Currency arraylist size is 2", 2, currencyList.size());
 		assertSame("Check that Currency is added", currency2, currencyList.get(1));
 	}
-<<<<<<< HEAD
-	
-	/
-=======
+
 
 	@Test
 	public void searchCurrencyTest() {
@@ -118,6 +115,36 @@ public class C206_CaseStudyTest {
 		C206_CaseStudy.searchCurrency(currencyList, "EUR");
 		assertNotSame("Check that Currency is searched", "GBP", currency2);
 	}
->>>>>>> branch 'master' of https://github.com/2011404-zhouxinlong/C206_CaseStudy.git
+	@Test
+	public void BuyCurrencyTest() {
+		assertNotNull("Check if there is valid Currenncy arrayList to buy from", currencyList);
+		
+		C206_CaseStudy.BuyCurrency(currencyList,HoldingList,"EUR");
+		assertSame("Check that Currency is searched", "EUR", currency1);
+		
+		C206_CaseStudy.BuyCurrency(currencyList,HoldingList,"EUR");
+		assertNotSame("Check that Currency is searched", "GBP", currency2);
+		
+		
+		
+		
+	}
+	@Test
+	public void SellCurrencyTest() {
+		assertNotNull("Check if there is valid Currenncy arrayList to sell ", currencyList);
+		
+		C206_CaseStudy.SellCurrency(currencyList,HoldingList,"EUR");
+		assertSame("Check that Currency is searched", "EUR", currency1);
+		
+		C206_CaseStudy.SellCurrency(currencyList,HoldingList,"EUR");
+		assertNotSame("Check that Currency is searched", "GBP", currency2);
+		
+		
+		
+		
+	}
+	
+	
+
 
 }
