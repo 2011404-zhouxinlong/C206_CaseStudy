@@ -12,6 +12,7 @@ public class C206_CaseStudyTest {
 	private Currency currency2;
 
 	private ArrayList<Currency> currencyList;
+	private ArrayList<Holding> HoldingList;
 
 	@Before
 	public void setUp() throws Exception {
@@ -81,7 +82,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that Currency arraylist size is 2", 2, currencyList.size());
 		assertSame("Check that Currency is added", currency2, currencyList.get(1));
 	}
-
+//
 	@Test
 	public void deleteCurrencyTest() {
 		// Currency list is not null - boundary
@@ -98,8 +99,7 @@ public class C206_CaseStudyTest {
 		assertEquals("Check that Currency arraylist size is 1", 1, currencyList.size());
 		
 	}
-	
-	
+
 	@Test
 	public void updateCurrencyTest() {
 		// Currency list is not null - boundary
@@ -125,24 +125,56 @@ public class C206_CaseStudyTest {
 	
 	
 	
-	
+	@Test
+	public void searchCurrencyTest() {
+		// Currency list is not null
+		assertNotNull("Check if there is valid Currency arraylist to search from", currencyList);
+
+		// The currency searched is the same as the first currency
+		// normal
+		C206_CaseStudy.searchCurrency(currencyList, "EUR");
+		assertSame("Check that Currency is searched", "EUR", currency1);
+
+		// The currency searched is the same as the first currency
+		// boundary
+		C206_CaseStudy.searchCurrency(currencyList, "EUR");
+		assertNotSame("Check that Currency is searched", "GBP", currency2);
 	
 
-//	@Test
-//	public void searchCurrencyTest() {
-//		// Currency list is not null
-//		assertNotNull("Check if there is valid Currency arraylist to search from", currencyList);
-//
-//		// The currency searched is the same as the first currency
-//		// normal
-//		C206_CaseStudy.searchCurrency(currencyList, "EUR");
-//		assertSame("Check that Currency is searched", "EUR", currency1);
-//
-//		// The currency searched is the same as the first currency
-//		// boundary
-//		C206_CaseStudy.searchCurrency(currencyList, "EUR");
-//		assertNotSame("Check that Currency is searched", "GBP", currency2);
-//	}
+		// The currency searched is the same as the first currency
+		// boundary
+		C206_CaseStudy.searchCurrency(currencyList, "EUR");
+		assertNotSame("Check that Currency is searched", "GBP", currency2);
+	}
+
+	@Test
+	public void BuyCurrencyTest() {
+		assertNotNull("Check if there is valid Currenncy arrayList to buy from", currencyList);
+		
+		C206_CaseStudy.BuyCurrency(currencyList,HoldingList,"EUR");
+		assertSame("Check that Currency is searched", "EUR", currency1);
+		
+		C206_CaseStudy.BuyCurrency(currencyList,HoldingList,"EUR");
+		assertNotSame("Check that Currency is searched", "GBP", currency2);
+		
+	}
+	
+	@Test
+	public void SellCurrencyTest() {
+		assertNotNull("Check if there is valid Currenncy arrayList to sell ", currencyList);
+		
+		C206_CaseStudy.SellCurrency(currencyList,HoldingList,"EUR");
+		assertSame("Check that Currency is searched", "EUR", currency1);
+		
+		C206_CaseStudy.SellCurrency(currencyList,HoldingList,"EUR");
+		assertNotSame("Check that Currency is searched", "GBP", currency2);
+		
+		
+		
+		
+	}
+	
+
 
 
 }
