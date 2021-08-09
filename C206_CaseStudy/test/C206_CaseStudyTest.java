@@ -94,30 +94,55 @@ public class C206_CaseStudyTest {
 		assertEquals("Test that Currency arraylist size is 2", 2, currencyList.size());
 
 		// Test that the second currency is deleted, the size of the list is 1
-		C206_CaseStudy.deleteCurrency(currencyList, "JPY");
-		assertEquals("Check that Currency arraylist size is 2", 2, currencyList.size());
-		assertSame("Check that Currency is added", currency2, currencyList.get(1));
+		C206_CaseStudy.deleteCurrency(currencyList, "GBP");
+		assertEquals("Check that Currency arraylist size is 1", 1, currencyList.size());
+		
 	}
-<<<<<<< HEAD
 	
-	/
-=======
-
+	
 	@Test
-	public void searchCurrencyTest() {
-		// Currency list is not null
-		assertNotNull("Check if there is valid Currency arraylist to search from", currencyList);
+	public void updateCurrencyTest() {
+		// Currency list is not null - boundary
+		assertNotNull("Check if there is valid Currency arraylist to add to", currencyList);
 
-		// The currency searched is the same as the first currency
-		// normal
-		C206_CaseStudy.searchCurrency(currencyList, "EUR");
-		assertSame("Check that Currency is searched", "EUR", currency1);
+		
+		// Given an empty list, after adding 2 currencies, test if the size of the list
+		// is 2 - normal
+		C206_CaseStudy.addCurrency(currencyList, currency1);
+		C206_CaseStudy.addCurrency(currencyList, currency2);
+		
+		
+		
+		// Test that the list is updated with new buy rate and sell rate
+		C206_CaseStudy.updateBuySellRate(currencyList, "EUR", "Euro", 1.20, 3.20);
+		String allCurrency = C206_CaseStudy.retrieveAllCurrency(currencyList);
+		String testOutput = String.format("%-15s %-30s %-10.2f %-10.2f\n", "EUR", "Euro", 1.20, 3.20);
+		testOutput += String.format("%-15s %-30s %-10.2f %-10.2f\n", "GBP", "British Pound", 1.86, 1.90);
+		
+		assertEquals("Test that ViewAllCurrencylist", testOutput, allCurrency);
+		
+	}	
+	
+	
+	
+	
+	
 
-		// The currency searched is the same as the first currency
-		// boundary
-		C206_CaseStudy.searchCurrency(currencyList, "EUR");
-		assertNotSame("Check that Currency is searched", "GBP", currency2);
-	}
->>>>>>> branch 'master' of https://github.com/2011404-zhouxinlong/C206_CaseStudy.git
+//	@Test
+//	public void searchCurrencyTest() {
+//		// Currency list is not null
+//		assertNotNull("Check if there is valid Currency arraylist to search from", currencyList);
+//
+//		// The currency searched is the same as the first currency
+//		// normal
+//		C206_CaseStudy.searchCurrency(currencyList, "EUR");
+//		assertSame("Check that Currency is searched", "EUR", currency1);
+//
+//		// The currency searched is the same as the first currency
+//		// boundary
+//		C206_CaseStudy.searchCurrency(currencyList, "EUR");
+//		assertNotSame("Check that Currency is searched", "GBP", currency2);
+//	}
+
 
 }

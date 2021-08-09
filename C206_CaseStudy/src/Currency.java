@@ -28,6 +28,14 @@ public class Currency {
 	public double getSellRate() {
 		return sellRate;
 	}
+	
+	public void setBuyRate(double buyRate) {
+		this.buyRate = buyRate;
+	}
+	
+	public void setSellRate(double sellRate) {
+		this.sellRate = sellRate;
+	}
 //
 
 }

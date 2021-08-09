@@ -4,23 +4,17 @@ import java.util.Iterator;
 
 public class C206_CaseStudy {
 
-	private static final int OPTION_QUIT = 8; // Extract constant
+	private static final int OPTION_QUIT = 9; // Extract constant
 
 	public static void main(String[] args) {
 
 		ArrayList<Currency> currencyList = new ArrayList<Currency>();
 		ArrayList<Holding> HoldingList = new ArrayList<Holding>();
-// do add other arraylist if required (Siew Gek)
-		
-
-
 
 		currencyList.add(new Currency("USD", "United States Dollar", 1.34, 1.36));
 		currencyList.add(new Currency("JPY", "Japanese Yen", 1.22, 1.25));
 		
 		HoldingList.add(new Holding("SGD", "Singapore Dollar",10000));
-		
-		
 		
 		
 		int option = 0;
@@ -48,9 +42,16 @@ public class C206_CaseStudy {
 				String dcurrencyISO = inputDeleteCurrencyISO();
 				C206_CaseStudy.deleteCurrency(currencyList, dcurrencyISO);
 			}
-
 			
 			else if (option == 4) {
+				C206_CaseStudy.setHeader("UPDATE CURRENCY");
+				// Delete currency
+				C206_CaseStudy.viewAllCurrency(currencyList);
+				C206_CaseStudy.updateBuySellRate(currencyList, inputCurrencyISO(), inputCurrencyName(), inputNewBuyRate(), inputNewSellRate());
+			}
+
+			
+			else if (option == 5) {
 				// Search Currency
 				C206_CaseStudy.setHeader("SEARCH");
 				String searchCountry = inputSearchCurrency();
@@ -58,25 +59,25 @@ public class C206_CaseStudy {
 
 			}
 
-			else if (option == 5) {
+			else if (option == 6) {
 				// Calculate Currency 
 				C206_CaseStudy.setHeader("CALCULATE");
 				C206_CaseStudy.calculateCurrency(currencyList);
 
-			} else if (option == 6) {
+			} else if (option == 7) {
 				C206_CaseStudy.setHeader("BUY CURRENCY");
 				C206_CaseStudy.BuyCurrency(currencyList, HoldingList);
-			}else if (option == 7) {
+				
+			}else if (option == 8) {
 				C206_CaseStudy.setHeader("SELL CURRENCY");
 				C206_CaseStudy.SellCurrency(currencyList, HoldingList);
 			}
 			else if (option == OPTION_QUIT) {
 			System.out.println("Bye!");
-		} else {
-			System.out.println("Invalid option");
-		}
-		
-
+			
+			} else {
+				System.out.println("Invalid option");
+			}
 		}
 
 	}
@@ -86,11 +87,12 @@ public class C206_CaseStudy {
 		System.out.println("1. View currencies");
 		System.out.println("2. Add currency");
 		System.out.println("3. Delete currency");
-		System.out.println("4. Search BUY and SELL rate");
-		System.out.println("5. Calculate Conversion");
-		System.out.println("6. Buy Currency");
-		System.out.println("7. Sell Currency");
-		System.out.println("8. Quit");
+		System.out.println("4. Update currency");
+		System.out.println("5. Search BUY and SELL rate");
+		System.out.println("6. Calculate Conversion");
+		System.out.println("7. Buy Currency");
+		System.out.println("8. Sell Currency");
+		System.out.println("9. Quit");
 		Helper.line(80, "-");
 
 	}
@@ -101,8 +103,7 @@ public class C206_CaseStudy {
 		Helper.line(80, "-");
 	}
 
-	// ================================= Option 1 View (CRUD - Read)
-	// =================================
+	// ================================= Option 1 View (CRUD - Read)=================================
 	public static String retrieveAllCurrency(ArrayList<Currency> currencyList) {
 		String output = "";
 
@@ -114,7 +115,7 @@ public class C206_CaseStudy {
 		}
 		return output;
 	}
-//
+
 	public static void viewAllCurrency(ArrayList<Currency> currencyList) {
 		C206_CaseStudy.setHeader("CURRENCY LIST");
 		String output = String.format("%-15s %-30s %-10s %-10s\n", "CURRENCY ISO", "CURRENCY NAME", "BUY RATE",
@@ -123,8 +124,7 @@ public class C206_CaseStudy {
 		System.out.println(output);
 	}
 
-	// ================================= Option 2 Add (CRUD -
-	// Create)=================================
+	// ================================= Option 2 Add (CRUD - Create)=================================
 	public static Currency inputCurrency() {
 		String currencyISO = Helper.readString("Enter currency ISO > ");
 		String currencyName = Helper.readString("Enter currency name > ");
@@ -142,8 +142,7 @@ public class C206_CaseStudy {
 		System.out.println("Currency added");
 	}
 
-	// ================================= Option 3 Delete (CRUD -
-	// DELETE)=================================
+	// ================================= Option 3 Delete (CRUD - DELETE)=================================
 	public static String inputDeleteCurrencyISO() {
 		String dcurrencyISO = Helper.readString("Enter currency ISO > ");
 
@@ -160,7 +159,52 @@ public class C206_CaseStudy {
 		System.out.println("Currency deleted");
 	}
 
-//================================= Option 4 Search BUY and SELL rate =================================
+	
+	
+	// ================================= Option 4 Update (CRUD - UPDATE)=================================
+	
+	public static String inputCurrencyISO() {
+		String uCurrencyISO = Helper.readString("Enter currency ISO > ");
+		return uCurrencyISO;
+	}
+	
+	
+	public static String inputCurrencyName() {
+		String uCurrencyName = Helper.readString("Enter currency Name > ");
+		return uCurrencyName;
+	}
+	
+	
+	public static double inputNewBuyRate() {
+		double newBuyRate = Helper.readDouble("Enter a new buy rate > ");
+		return newBuyRate;
+	}
+	
+	public static double inputNewSellRate() {
+		double newSellRate = Helper.readDouble("Enter a sell buy rate > ");
+		return newSellRate;
+	}
+	
+	
+	
+	public static void updateBuySellRate(ArrayList<Currency> currencyList, String uCurrencyISO, 
+			String uCurrencyName, double newBuyRate, double newSellRate) {
+		
+		for (Currency i : currencyList) {
+			if (uCurrencyISO.equalsIgnoreCase(i.getCurrencyISO()) && 
+					uCurrencyName.equalsIgnoreCase(i.getCurrencyName())) {
+				
+				i.setBuyRate(newBuyRate);
+				i.setSellRate(newSellRate);
+				
+				System.out.println("Currency updated");
+				
+			}
+		}
+	}
+	
+	
+//================================= Option 5 Search BUY and SELL rate =================================
 
 	public static String inputSearchCurrency() {
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
@@ -182,7 +226,7 @@ public class C206_CaseStudy {
 
 	}
 
-//================================= Option 5 Calculate =================================
+//================================= Option 6 Calculate =================================
 
 	public static void calculateCurrency(ArrayList<Currency> currencyList) {
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
@@ -222,8 +266,7 @@ public class C206_CaseStudy {
 
 	}
 
-	// ================================= Option 6 Buy Currency
-	// =================================
+	// ================================= Option 7 Buy Currency =================================
 	public static void BuyCurrency(ArrayList<Currency> currencyList,ArrayList<Holding>HoldingList) {
 		
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
@@ -246,6 +289,8 @@ public class C206_CaseStudy {
 
 
 	}
+	
+	// ================================= Option 8 Sell Currency =================================
 	public static void SellCurrency(ArrayList<Currency> currencyList,ArrayList<Holding>HoldingList) {
 		
 		String searchCountry = Helper.readString("Enter country ISO (e.g. USD) > ");
@@ -269,6 +314,8 @@ public class C206_CaseStudy {
 
 
 	}
+	
+	
+	
 
 }
-//
